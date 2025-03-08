@@ -1,6 +1,9 @@
 ﻿using DesignPatternsC_.AdapterPattern;
 using DesignPatternsC_.DependencyInjection;
 using DesignPatternsC_.FactoryPattern;
+using DesignPatternsC_.ObserverPattern;
+using DesignPatternsC_.RepositoryPattern;
+using DesignPatternsC_.Singleton;
 using DesignPatternsC_.StrategyPattern;
 using DesignPatternsC_.StrategyPatternEX2;
 using System;
@@ -98,19 +101,94 @@ namespace DesignPatternsC_
 
 
             // 5. Strategy Pattern Example 2
-            Logger consoleLogger = new Logger(new ConsoleLogStrategy());
-            consoleLogger.Log("This is a message logged to the console.");
+            //Logger consoleLogger = new Logger(new ConsoleLogStrategy());
+            //consoleLogger.Log("This is a message logged to the console.");
 
-            Logger fileLogger = new Logger(new FileLogStrategy());
-            fileLogger.Log("This is a message logged to the file.");
+            //Logger fileLogger = new Logger(new FileLogStrategy());
+            //fileLogger.Log("This is a message logged to the file.");
 
-            Logger databaseLogger = new Logger(new DatabaseLogStrategy());
-            databaseLogger.Log("This is a message logged to the file.");
+            //Logger databaseLogger = new Logger(new DatabaseLogStrategy());
+            //databaseLogger.Log("This is a message logged to the file.");
 
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
             // 5. Strategy Pattern Example 2
+
+
+            // 6. Singleton Design Pattern
+
+            //SingletonLogger logger1 = SingletonLogger.Instance();
+            //SingletonLogger logger2 = SingletonLogger.Instance();
+
+            //logger1.Log("This is the first log message");
+            //logger2.Log("This is the first log message");
+
+            //Console.WriteLine($"Are both instance the same? {ReferenceEquals(logger1, logger2)}");
+
+            // 6. Singleton Design Pattern
+
+
+            // 6. Singleton Design Pattern
+
+            // Step 7: Create the WeatherStation (Subject)
+            //WeatherStation weatherStation = new WeatherStation();
+
+            //// Step 8: Create observers (MobileApp and Website)
+            //MobileApp mobileApp = new MobileApp("MobileApp");
+            //Website website = new Website("WeatherWebsite");
+
+            //// Step 9: Register observers
+            //weatherStation.RegisterObserver(mobileApp);
+            //weatherStation.RegisterObserver(website);
+
+            //// Step 10: Change the temperature and notify observers
+            //Console.WriteLine("Wether update: Temperature changes to 25 C");
+            //weatherStation.SetTemperature(25);
+
+            //// Step 11: Unregister an observer (MobileApp)
+            //weatherStation.RegisterObserver(mobileApp);
+
+            //// Step 12: Change the temperature again
+            //Console.WriteLine("Weather update: Temperature changes to 30 C");
+            //weatherStation.SetTemperature(30);
+
+            // 6. Singleton Design Pattern
+
+
+            // 6. Repository Design Pattern
+
+            IRepository<Customer> customerRepository = new CustomerRepository();
+
+            customerRepository.Add(new Customer { Id = 1, Name = "John Deo", Email = "john@example.com" });
+            customerRepository.Add(new Customer { Id = 2, Name = "Jane Smith", Email = "jane@example.com" });
+
+            var customers = customerRepository.GetAll();
+            Console.WriteLine("\nList of customers:");
+
+            foreach(var customer in customers)
+            {
+                Console.WriteLine($"ID: {customer.Id}, Name: {customer.Name}, Email: {customer.Email}");
+            }
+
+            var customerToUpdate = new Customer { Id = 1, Name = "John Deo Modified", Email = "john.updated@example.com" };
+            customerRepository.Update(customerToUpdate);
+
+            var updatedCustomer = customerRepository.GetById(1);
+            Console.WriteLine($"\nUpdated customer: {updatedCustomer.Id}, {updatedCustomer.Name}, {updatedCustomer.Email}");
+
+            customerRepository.Delete(2);
+
+            customers = customerRepository.GetAll();
+            Console.WriteLine("\nRemaining customers:");
+            foreach (var customer in customers)
+            {
+                Console.WriteLine($"ID: {customer.Id}, Name: {customer.Name}, Email: {customer.Email}");
+            }
+
+            // 6. Repository Design Pattern
+
+            Console.ReadLine();
 
         }
     }
